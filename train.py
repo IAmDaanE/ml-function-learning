@@ -2,7 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pygame
 import os
-from torchvision.datasets import MNIST
 
 WINDOW_WIDTH = 1000
 WINDOW_HEIGHT = 900
