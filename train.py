@@ -3,14 +3,14 @@ import os
 import nnlib as nn 
 import numpy as np
 
-hidden_size = 160
+hidden_size = 16
 
-network = nn.Network(nn.Losses.mse, 1, hidden_size, 3, 1, 1920, 1080)
+network = nn.Network(nn.Losses.mse)
 
-network.add(nn.Layer(1, hidden_size, nn.Activations().relu))
-network.add(nn.Layer(hidden_size, hidden_size, nn.Activations().relu))
-network.add(nn.Layer(hidden_size, hidden_size, nn.Activations().relu))
-network.add(nn.Layer(hidden_size, 1, nn.Activations().linear))
+network.add(nn.Layer(1, hidden_size, nn.Activations().relu, nn.WeightInitializers.he))
+network.add(nn.Layer(hidden_size, hidden_size, nn.Activations().relu, nn.WeightInitializers.he))
+network.add(nn.Layer(hidden_size, hidden_size, nn.Activations().relu, nn.WeightInitializers.he))
+network.add(nn.Layer(hidden_size, 1, nn.Activations().linear, nn.WeightInitializers.xavier))
 
 plt.ion()
 
@@ -27,6 +27,8 @@ def run_training(epochs, start_lr):
     y_norm = (correct_y - y_mean) / y_std
 
     for epoch in range(epochs):
+        network.epoch = epoch
+        network.current_lr = current_lr
         predicted_y_norm = network.forward(x_norm)
         loss = network.loss_function(predicted_y_norm, y_norm)
         network.loss = loss
@@ -41,7 +43,7 @@ def run_training(epochs, start_lr):
             plt.title(f'epoch {epoch} | loss {loss:.6f}')
             plt.legend()
             plt.pause(0.01)
-            network.visualize()
+            network.visualize(1, 16, 3, 1, 1920, 1080, "proportional")
 
 if __name__ == "__main__":
     run_training(50000, 0.1)
