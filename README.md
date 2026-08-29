@@ -2,6 +2,10 @@
 
 Train an AI to take the shape of any mathmematical function.
 
+---
+
+<img width="958" height="630" alt="image" src="https://github.com/user-attachments/assets/d580e826-7ec1-4a9a-afb8-221cf42fee04" />
+
 ## About the Project
 
 This was written in python using [my very own neural network library](https://github.com/IAmDaanE/neural-network-library). The input into the neural network is just the normalized x value and the network should spit out the y value for that x value. The function's are visualized using MatPlotLib and the neural network is visualized by that neural network library using pygame.
