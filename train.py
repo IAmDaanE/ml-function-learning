@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import os
-import nnlib as nn 
+import nnlib_py as nn 
 import numpy as np
 
 hidden_size = 16
@@ -34,7 +34,7 @@ def run_training(epochs, start_lr):
         network.loss = loss
         network.backward(predicted_y_norm, y_norm)
         network.update(current_lr)
-        current_lr = nn.LrDecays.linear_decay(current_lr, 0.000095, 0.0005)
+        current_lr = nn.LrDecays.linear_decay(current_lr, 0.0000000000000000000000000000095, 0.0005)
         if epoch % 10 == 0:
             predicted_y = predicted_y_norm * y_std + y_mean
             plt.clf()
@@ -44,6 +44,8 @@ def run_training(epochs, start_lr):
             plt.legend()
             plt.pause(0.01)
             network.visualize(1, 16, 3, 1, 1920, 1080, "proportional")
+        if network.screen:
+            network.check_pygame_events()
 
 if __name__ == "__main__":
-    run_training(50000, 0.1)
+    run_training(50000, 0.005)
