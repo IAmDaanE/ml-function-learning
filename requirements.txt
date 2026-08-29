@@ -1,1 +1,2 @@
 git+https://github.com/IAmDaanE/neural-network-library.git@master
+matplotlib
